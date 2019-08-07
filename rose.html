@@ -10,7 +10,7 @@
     <style>
         #text {
 
-            width: 100%;
+            width: 90%;
             height: 300px;
             position: absolute;
             bottom: 2%;
@@ -27,7 +27,7 @@
 <body>
 
     <marquee id="text" width=100% behavior=alternate direction=middle align=middle>
-        <p id="where">群里的小仙女七夕快乐，我是你们的晴天小哥哥😁</p>
+        <p id="where">群里的小仙女七夕快乐，我是你们的花椰菜小哥哥😁</p>
     </marquee>
     <canvas id="c"></canvas>
     <script>
@@ -46,7 +46,7 @@
         document.getElementById("where").style.color = color[parseInt(Math.random() * color.length)];
     }
     window.onload = function text_animation() {
-        setInterval("changeColor()", 150);
+        setInterval("changeColor()", 200);
     }
 </script>
 
