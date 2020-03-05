@@ -3,23 +3,114 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>love</title>
+
+	<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script>
+		$(function() {
+		    $.fn.Cherry_Blossoms=function (params) {
+		        return this.each(function () {
+		            var defaults={
+		                ele:'.cherry',//切换对象
+		                is_Cherry:true,//是否生成樱花
+		                image_min:50,//花瓣最小宽度和高度
+		                image_max:100,//花瓣最大宽度和高度
+		                time_min:10000,//花瓣最快下坠时间
+		                time_max:20000,//花瓣最慢下坠时间
+		                interval:500//花瓣生成时间间隔
+		            };
+		            var par = $.extend({}, defaults, params);
+		            function randomNum(minNum, maxNum) {
+		                switch (arguments.length) {
+		                    case 1:
+		                        return parseInt(Math.random() * minNum + 1, 10);
+		                        break;
+		                    case 2:
+		                        return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+		                        break;
+		                    default:
+		                        return 0;
+		                        break;
+		                }
+		            }
+		            /**
+		             * 生成樱花花瓣
+		             */
+		            if(par.is_Cherry) {
+		                setInterval(function () {
+		                    var time;//下落的持续时间，取随机数
+		                    var image_daxiao;//花瓣大小取随机数
+		                    var margin_left;//花瓣所在位置，取随机数
+		                    margin_left = randomNum(5, 100);
+		                    time = randomNum(par.time_min, par.time_max);
+		                    console.log(time);
+		                    image_daxiao = randomNum(par.image_min, par.image_max);
+		                    console.log(image_daxiao);
+		                    $('#yinghua:last-child').after('<img id="yinghua" src="image/yinghua.png" alt="">');
+		                    $('#yinghua:last-child').css({
+		                        'margin-left': margin_left + '%',
+		                        'width': image_daxiao + 'px',
+		                        'height': image_daxiao + 'px'
+		                    });
+		                    $('#yinghua:last-child').animate({
+		                            left: -15 + '%',
+		                            top: 100 + '%',
+		                            deg: -540
+		                        },
+		                        {
+		                            step: function (deg) {
+		                                $(this).css({"transform": "rotate3d(1,.2,0," + deg + "deg)"});
+		                            },
+		                            duration: time
+		                        }, time);
+		                    setTimeout(function () {
+		                        $('#yinghua:first-child').remove();
+		                    }, time-5000);
+		                }, par.interval);
+		            }
+		        })
+		    }
+		});
+	</script>
+
+	<style>
+		*{margin: 0px; padding: 0px;}
+		body{background: rgb(10, 10, 0); box-sizing: border-box;}
+		img{width:30px;height:30px;margin-top:-90px;opacity: 0.3;position: absolute;z-index: -1;}
+	</style>
 </head>
 
 <body>
 
-    <div style="font-size: 150%; margin-left: 10%;margin-top: 30px; color: rgb(55, 55, 55);">To：韩小丹</div>
+    <div class="cherry">
+		<img id="yinghua" src="image/yinghua.png" alt="" >
+    </div>
+    
+    <script>
+	    $(function(){
+	        $('.cherry').Cherry_Blossoms({
+	            is_Cherry:true,//是否生成樱花
+	            image_min:20,//花瓣最小宽度和高度
+	            image_max:50,//花瓣最大宽度和高度
+	            time_min:10000,//花瓣最快下坠时间
+	            time_max:32000,//花瓣最慢下坠时间
+	            interval:300//花瓣生成时间间隔
+	        })
+	    })
+	</script>
+
+    <div style="font-size: 150%; margin-left: 10%;margin-top: 50px; color: rgb(250, 250, 250);">To：韩小丹</div>
 
     <div id="container" style="background-color: transparent; margin: 30px auto 0 auto; width: 100%; max-width: 500px;">
         <canvas id="c" style="margin:0 auto;width: 100%;"></canvas>
     </div>
-    <marquee id="text" width=100% behavior=alternate direction=middle align=middle style="width: 90%; height: 100px; overflow: hidden;
-    margin: 0px 5% 10px 5%; padding: 0 10px 0 10px; color: rgb(200, 200, 200); font-weight: 100; font-size: 200%;">
+    <marquee id="text" width=95% behavior=alternate direction=middle align=middle style="height: 100px; overflow: hidden;
+    padding: 0 15px 0 15px; color: rgb(200, 200, 200); font-weight: 100; font-size: 200%;line-height: 100px;">
         <p id="where">韩小丹同学，我喜欢你，嫁给我吧😁</p>
     </marquee>
-    <div style="font-size: 150%; margin-right: 10%; color: rgb(55, 55, 55);float: right; position: relative;">From：hzz</div>
+    <div style="font-size: 150%; margin-right: 10%; color: rgb(250, 250, 250);float: right; position: relative;">From：hzz</div>
 
     <script>
         var b = document.body;
@@ -32,7 +123,7 @@
 
     <script>
         function changeColor() {
-            var color = "#ff4500|#66cdaa|#90ee90|#585858|#ff69b4|#00ced1|#373737|#9acd32|#008000|#ff7f50|#8a2be2|#ff69b4";
+            var color = "#ff4500|#66cdaa|#90ee90|#FAFAFA|#ff69b4|#00ced1|#373737|#9acd32|#008000|#ff7f50|#8a2be2|#ff69b4";
             color = color.split("|");
             document.getElementById("where").style.color = color[parseInt(Math.random() * color.length)];
         }
